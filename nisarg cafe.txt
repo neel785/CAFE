@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/coffee"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
+
+-------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/coffee"
+        android:textColor="#60DFEF"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/icedList"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="10dp"
+        android:paddingHorizontal="2dp"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/list" />
+
+</android.support.constraint.ConstraintLayout>
+
+-----------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:padding="5dp"
+        android:text="@string/item_name"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:padding="5dp"
+            android:text="@string/quantity"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:textColor="#D1CFCF"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:padding="5dp"
+            android:text="@string/price"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:textColor="#D1CFCF"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+---------------------------------------------------------------------------------------------------------
+
+package com.example.cafedemo;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        button = findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
+                startActivity(intent);
+
+            }
+        });
+
+    }
+}
+
+-----------------------------------------------------------------------------------------------------
+
+package com.example.cafedemo;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ListView;
+
+
+public class MainActivity2 extends AppCompatActivity {
+
+    ListView icedList;
+
+    String[] name = {"1.  Espresso","2.  Americano","3.  Cappuccino","4.  Mocha","5.  Cafe Latte","6.  Caramel Macchiato","7.  Piccolo","8.  Affogato","9.  Local Beans","10. Guest Beans"};
+    String[] qun = {"100 ml ","120 ml ","100 ml ","100 ml ","100 ml ","150 ml ","100 ml ","100 ml ","150 ml ","100 ml "};
+    String[] pr = {"75","70","80","85","70","75","85","90","65","95"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        icedList = findViewById(R.id.icedList);
+
+       CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),name,qun,pr);
+       icedList.setAdapter(customAdapter);
+
+    }
+
+
+    }
+
+-------------------------------------------------------------------------------------------------------------------
+
+package com.example.cafedemo;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+public class CustomAdapter extends BaseAdapter {
+
+    Context context;
+    String[] listName;
+    String[] listQun;
+    String[] listPr;
+    LayoutInflater inflater;
+
+    public CustomAdapter(Context context,String[] name,String[] qun,String[] pr){
+
+        this.context = context;
+        this.listName = name;
+        this.listQun = qun;
+        this.listPr = pr;
+
+        inflater = LayoutInflater.from(context);
+
+    }
+
+    @Override
+    public int getCount() {
+        return listName.length;
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @SuppressLint({"ViewHolder", "InflateParams"})
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        view = inflater.inflate(R.layout.list,null);
+
+        TextView itemName = view.findViewById(R.id.itemName);
+        TextView quantity = view.findViewById(R.id.quantity);
+        TextView price = view.findViewById(R.id.price);
+
+        itemName.setText(listName[i]);
+        quantity.setText(listQun[i]);
+        price.setText(listPr[i]);
+        return view;
+    }
+}
