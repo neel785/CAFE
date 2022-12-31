@@ -1,0 +1,31 @@
+﻿
+package com.example.cafedemo;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ListView;
+
+
+public class MainActivity5 extends AppCompatActivity {
+
+    ListView otherList;
+
+    String[] name = {"1.  Tea","2.  Black Tea","3.  Green Tea","4.  Lychee Tea","5.  Peach Tea","6.  Coconut","7.  Cold Coco","8.  Chocolate Milkshake","9.  Mineral water"};
+    String[] qun = {"100 ml ","100 ml ","100 ml ","100 ml ","100 ml ","90 ml ","150 ml ","150 ml ","500 ml"};
+    String[] pr = {"50","60","60","70","75","90","100","110","60"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main5);
+
+        otherList = findViewById(R.id.otherList);
+
+       CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),name,qun,pr);
+       otherList.setAdapter(customAdapter);
+
+    }
+
+
+    }
