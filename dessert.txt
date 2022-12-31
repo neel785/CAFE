@@ -1,0 +1,31 @@
+﻿
+package com.example.cafedemo;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ListView;
+
+
+public class MainActivity4 extends AppCompatActivity {
+
+    ListView dessertList;
+
+    String[] name = {"1.  Rye Bread","2.  Strawberry Mousse","3.  Yogurt Pudding","4.  Sandwich Ham Bread","5.  Chocolate Cake","6.  Red Velvet Cake","7.  Brownie"};
+    String[] qun = {"50 g ","60 g ","50 g ","70 g ","100 g ","100 g ","60 g "};
+    String[] pr = {"70","90","85","70","150","180","110"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main4);
+
+        dessertList = findViewById(R.id.dessertList);
+
+       CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),name,qun,pr);
+       dessertList.setAdapter(customAdapter);
+
+    }
+
+
+    }
