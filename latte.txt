@@ -1,0 +1,31 @@
+﻿
+package com.example.cafedemo;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ListView;
+
+
+public class MainActivity3 extends AppCompatActivity {
+
+    ListView latteList;
+
+    String[] name = {"1.  Choco Pirates","2.  Green Land Latte","3.  Red Beach Latte","4.  Purple Sky Ocean","5.  Octopus Ink Latte","6.  Rum Biscuit Latte"};
+    String[] qun = {"120 ml ","100 ml ","100 ml ","100 ml ","100 ml ","150 ml "};
+    String[] pr = {"50","75","60","55","70","85"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main3);
+
+        latteList = findViewById(R.id.latteList);
+
+       CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),name,qun,pr);
+       latteList.setAdapter(customAdapter);
+
+    }
+
+
+    }
